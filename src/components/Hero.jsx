@@ -48,7 +48,6 @@ const Hero = ({navbarHeight}) => {
           start:`top ${navbarHeight}`,
           end:"bottom top",
           scrub: 1,
-          // markers: true
         }
       }).to(".right-leaf",{
         y: 100,
@@ -71,7 +70,6 @@ const Hero = ({navbarHeight}) => {
           end: endValue,
           scrub: 2,
           pin: true,
-          // markers: true,
         }
       }).to(videoRef.current, {
         currentTime: videoRef.current.duration,

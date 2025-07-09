@@ -19,7 +19,6 @@ const Cocktails = ({navbarHeight}) => {
                     start: `top 30%`,
                     end: "bottom top",
                     scrub: 3,
-                    // markers: true
                 }
             }).to(".cocktail-right-leaf", {
                 x: -70
