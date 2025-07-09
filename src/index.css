@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "Modern Negra";
-  src: url("../public/fonts/Modern-Negra-Demo.ttf") format("opentype");
+  src: url("/fonts/Modern-Negra-Demo.ttf") format("opentype");
 }
 
 html,
