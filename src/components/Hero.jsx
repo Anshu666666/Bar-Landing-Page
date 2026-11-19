@@ -53,32 +53,22 @@ const Hero = ({navbarHeight}) => {
         
       }, "2-same-time")
 
+      const startValue = window.innerWidth <= 768 ? 'top 75%' : 'top 60%';
+
       const setupVideoScrollTrigger = () => {
         if (!videoRef.current || isNaN(videoRef.current.duration) || videoRef.current.duration === 0) return;
 
-        // Start video playback immediately upon scrolling from Hero through the end of Cocktails
         gsap.timeline({
           scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
+            trigger: videoRef.current,
+            start: startValue,
             endTrigger: "#cocktails",
-            end: "bottom bottom",
-            scrub: 1,
+            end: "bottom top",
+            scrub: 1.5,
+            pin: true,
           }
         }).to(videoRef.current, {
           currentTime: videoRef.current.duration,
-          ease: 'none',
-        });
-
-        // Smoothly fade video out as the user enters the About section
-        gsap.to('.video-container', {
-          scrollTrigger: {
-            trigger: '#about',
-            start: 'top 95%',
-            end: 'top 60%',
-            scrub: true,
-          },
-          opacity: 0,
           ease: 'none',
         });
       };
@@ -134,10 +124,10 @@ const Hero = ({navbarHeight}) => {
 
     </section>
 
-    <div className='video-container fixed inset-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-0 flex items-end justify-center'>
+    <div className='video absolute z-0 w-full max-w-[100vw] h-[80%] max-md:h-[50%] bottom-0 overflow-hidden pointer-events-none'>
       <video 
         ref={videoRef} 
-        className='h-[62vh] sm:h-[72vh] md:h-[80vh] w-auto max-w-[95vw] object-contain pointer-events-none drop-shadow-2xl' 
+        className='absolute h-full w-auto max-w-full bottom-0 left-1/2 -translate-x-1/2 max-md:object-contain object-contain pointer-events-none' 
         src='/videos/output.mp4' 
         muted 
         playsInline 

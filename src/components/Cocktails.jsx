@@ -27,7 +27,7 @@ const Cocktails = ({navbarHeight}) => {
     }, [])
 
   return (
-    <div id='cocktails' ref={hero2} className='relative overflow-hidden border border-transparent z-20 w-full max-w-[100vw] bg-transparent min-h-screen py-16 sm:py-24 flex items-center justify-center'>
+    <div id='cocktails' ref={hero2} className='relative overflow-hidden border border-transparent z-40 w-full bg-transparent h-[100vh] mt-[100vh]'>
     
         <img src='/images/hero-left-leaf.png'
             alt='Decorative leaf'
@@ -39,7 +39,7 @@ const Cocktails = ({navbarHeight}) => {
         />
         
         {/* Mobile View: Tab Toggle + Active List Card */}
-        <div className='md:hidden relative z-40 px-4 w-full flex flex-col items-center my-auto'>
+        <div className='md:hidden absolute z-40 top-20 inset-x-0 px-4 flex flex-col items-center'>
             <div className='flex bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/10 mb-4 shadow-lg'>
                 <button 
                     type='button'
