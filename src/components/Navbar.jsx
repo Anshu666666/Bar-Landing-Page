@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useState} from 'react'
 import { navLinks } from '../../constants/index.js'
 import { useGSAP } from '@gsap/react'
 import {gsap} from 'gsap'
@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = forwardRef((props, ref) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     useGSAP(()=>{
         const navTween = gsap.timeline({
             scrollTrigger:{
@@ -15,26 +17,55 @@ const Navbar = forwardRef((props, ref) => {
         })
 
         navTween.fromTo("nav",{ backgroundColor: 'transparent'},{
-            backgroundColor: "#00000050",
-            backdropFilter: 'blur(10px)',
+            backgroundColor: "#00000080",
+            backdropFilter: 'blur(12px)',
             duration: 1,
             ease: 'power1.inOut'
         })
-    })
+    }, [])
 
   return (
-    <nav ref={ref} className=' flex max-md:flex-col max-md:gap-[0.5rem] py-[0.4rem] px-[3rem] justify-between items-center bg-blue-300 fixed z-50 w-full'>
-        <a href='#home' className='flex items-center gap-[0.7rem] '>
-            <img src='/images/logo.png' className='object-contain h-[2.5rem] '/>
-            <p className='font-negra text-[2.3rem] align-middle leading-none pt-[0.4rem] '>Velvet Pour</p>
+    <nav ref={ref} className='flex py-3 px-4 sm:px-8 md:px-12 justify-between items-center bg-black/40 backdrop-blur-md md:bg-transparent fixed z-50 w-full transition-all duration-300 border-b border-white/5 md:border-transparent'>
+        <a href='#home' className='flex items-center gap-2 sm:gap-3'>
+            <img src='/images/logo.png' alt='Velvet Pour Logo' className='object-contain h-8 sm:h-9 md:h-10'/>
+            <p className='font-negra text-2xl sm:text-3xl md:text-[2.2rem] align-middle leading-none pt-1'>Velvet Pour</p>
         </a>
-        <ul className='flex gap-[2.5rem]'>
+
+        {/* Desktop Navigation */}
+        <ul className='hidden md:flex items-center gap-6 lg:gap-10 text-sm lg:text-base tracking-wide font-medium'>
             {navLinks.map((link)=>(
                 <li key={link.id}>
-                    <a href={`#${link.id}`}>{link.title}</a>
+                    <a href={`#${link.id}`} className='hover:text-[#DDCC34] transition-colors duration-200'>{link.title}</a>
                 </li>
             ))}
         </ul>
+
+        {/* Mobile Hamburger Button */}
+        <button 
+            type='button'
+            aria-label='Toggle navigation menu'
+            onClick={() => setIsMenuOpen(prev => !prev)}
+            className='md:hidden text-white text-2xl p-1 rounded-md hover:bg-white/10 transition-colors focus:outline-none'
+        >
+            <i className={isMenuOpen ? "ri-close-line" : "ri-menu-line"}></i>
+        </button>
+
+        {/* Mobile Dropdown Menu */}
+        {isMenuOpen && (
+            <div className='md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-2xl border-b border-white/10 px-6 py-5 flex flex-col gap-4 shadow-2xl'>
+                {navLinks.map((link)=>(
+                    <a 
+                        key={link.id} 
+                        href={`#${link.id}`} 
+                        onClick={() => setIsMenuOpen(false)}
+                        className='text-base font-medium text-white/90 hover:text-[#DDCC34] transition-colors flex items-center justify-between py-1 border-b border-white/5 last:border-none'
+                    >
+                        <span>{link.title}</span>
+                        <i className="ri-arrow-right-s-line text-slate-500"></i>
+                    </a>
+                ))}
+            </div>
+        )}
     </nav>
   )
 })

@@ -11,14 +11,15 @@ module.exports = {
       },
     },
     screens: {
-      // ⬅️ Default screens (optional)
-      md: '540px',
+      xs: '420px',
+      sm: '640px',
+      md: '768px',
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
-      'max-md': {max:'539px'},
-
-
+      'max-md': { max: '767px' },
+      'max-sm': { max: '639px' },
+      'max-lg': { max: '1023px' },
     },
   },
   plugins: [],

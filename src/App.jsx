@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import {gsap} from 'gsap'
 import { ScrollTrigger, SplitText } from "gsap/all"
@@ -17,17 +15,19 @@ function App() {
   const navbarRef = useRef(null);
   const [navbarHeight, setNavbarHeight] = useState(0);
 
-useEffect(() => {
-  const handle = () => {
-    if (navbarRef.current) {
-      const height = navbarRef.current.getBoundingClientRect().height;
-      setNavbarHeight(height);
-    }
-  };
+  useEffect(() => {
+    const handle = () => {
+      if (navbarRef.current) {
+        const height = navbarRef.current.getBoundingClientRect().height;
+        setNavbarHeight(height);
+      }
+    };
 
-  // Call after initial paint
-  requestAnimationFrame(handle);
-}, [])
+    // Call after initial paint
+    requestAnimationFrame(handle);
+    window.addEventListener('resize', handle);
+    return () => window.removeEventListener('resize', handle);
+  }, []);
   
 
   return (

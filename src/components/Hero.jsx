@@ -2,7 +2,6 @@ import React, {useRef} from 'react'
 import { useGSAP } from '@gsap/react'
 import {gsap} from 'gsap'
 import { SplitText } from 'gsap/all'
-import Navbar from './Navbar'
 import {useMediaQuery} from 'react-responsive'
 
 const Hero = ({navbarHeight}) => {
@@ -96,24 +95,32 @@ const Hero = ({navbarHeight}) => {
 
   return (
     <>
-    <section style={{ height: `calc(100vh - ${navbarHeight}px)` }} className='hero noisy relative z-10  max-md:mt-[5rem] mt-[3.5rem] h-[calc(100vh-4.5rem)]  w-[100%] flex flex-col items-center overflow-hidden '>
-        <h1 ref={titleRef} className=' absolute font-negra text-[22vw] leading-[22vw] top-[3rem]  '>MOJITO</h1>
+    <section style={{ height: `calc(100vh - ${navbarHeight}px)` }} className='hero noisy relative z-10 max-md:mt-[4.5rem] mt-[3.5rem] h-[calc(100vh-4.5rem)] w-full flex flex-col items-center overflow-hidden'>
+        <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight'>MOJITO</h1>
         <img src='/images/hero-left-leaf.png' 
-             className=' left-leaf absolute z-20 left-0 md:top-[5rem] max-md:bottom-[0rem] h-[22rem] w-[13rem] '
+             alt='Hero left leaf'
+             className='left-leaf absolute z-20 left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
              />
         <img src='/images/hero-right-leaf.png' 
-              className=' right-leaf absolute z-20 right-0 md:top-0 max-md:bottom-[10rem] h-[22rem] w-[13rem] '
+              alt='Hero right leaf'
+              className='right-leaf absolute z-20 right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
             />
 
-        <div className="body">
+        <div className="body w-full h-full relative">
           <div className="content">
-            <div className=' max-md:hidden md:block absolute bottom-[2rem] left-[4rem] '>
-              <p>Cool. Crisp. Classic.</p>
-              <p ref={subtitleRef1} className=' font-negra text-[3rem] leading-[3rem] text-[#ddcc34] '>Sip the Spirit<br/> of Summer</p>
+            <div className='max-md:hidden md:block absolute bottom-8 left-6 lg:left-12 max-w-xs'>
+              <p className='text-sm md:text-base text-slate-300'>Cool. Crisp. Classic.</p>
+              <p ref={subtitleRef1} className='font-negra text-2xl sm:text-3xl md:text-[2.6rem] leading-none text-[#ddcc34] mt-1'>Sip the Spirit<br/> of Summer</p>
             </div>
-            <div className=' max-md:hidden md:block  absolute bottom-[2rem] right-[4rem] '>
-              <p ref={subtitleRef2} className=' '>Every cocktail on our meny is a<br/> blend of premium ingredients,<br/> creative flair, and timeless recipes<br/> -designed to delight your senses</p>
-              <a href='#cocktails'>View Cocktails</a>
+            <div className='max-md:hidden md:block absolute bottom-8 right-6 lg:right-12 text-right max-w-xs'>
+              <p ref={subtitleRef2} className='text-xs md:text-sm text-slate-300 leading-relaxed'>Every cocktail on our menu is a<br/> blend of premium ingredients,<br/> creative flair, and timeless recipes<br/> — designed to delight your senses</p>
+              <a href='#cocktails' className='inline-block mt-2 text-xs md:text-sm font-semibold tracking-wider uppercase text-[#ddcc34] hover:underline'>View Cocktails →</a>
+            </div>
+
+            {/* Mobile-only subtle scroll prompt */}
+            <div className='md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-center pointer-events-none w-full px-4'>
+              <span className='text-xs uppercase tracking-widest text-[#ddcc34] font-medium'>Sip the Spirit of Summer</span>
+              <span className='text-[11px] text-slate-400 flex items-center gap-1 animate-pulse'>Scroll down <i className="ri-arrow-down-s-line"></i></span>
             </div>
           </div>
         </div>

@@ -29,59 +29,58 @@ const About = () => {
                 stagger: 0.04
             }, "-=0.5")
         })
-    })
-
-
+    }, [])
 
   return (
-    <div className='about bg-transparent w-full p-[4rem] flex flex-col gap-[5rem]'>
-        <div className="about-up flex justify-between">
-              <div className="about-left flex flex-col gap-[2rem]">
-                  <button className=' w-max bg-white rounded-[13px] text-black text-[0.7rem] py-[0.3rem] px-[0.6rem] flex items-center font-bold '>Best Cocktails</button>
-                  <div className="caption text-[3rem] font-negra leading-[2rem] ">Where every detail<br /> matters-from muddle<br /> to garnish</div>
+    <div id='about' className='about bg-transparent w-full px-4 sm:px-8 md:px-12 lg:p-[4rem] py-14 sm:py-20 flex flex-col gap-10 md:gap-14 lg:gap-[5rem]'>
+        <div className="about-up flex flex-col lg:flex-row justify-between gap-8 lg:gap-12">
+              <div className="about-left flex flex-col gap-4 sm:gap-6 max-w-xl">
+                  <span className='w-max bg-white rounded-full text-black text-xs py-1 px-3.5 flex items-center font-bold tracking-wide uppercase shadow-sm'>Best Cocktails</span>
+                  <div className="caption text-3xl sm:text-4xl md:text-5xl lg:text-[3rem] font-negra leading-tight sm:leading-snug">Where every detail<br /> matters—from muddle<br /> to garnish</div>
               </div>
 
-              <div className="about-right md:mr-[4rem] flex flex-col gap-[1rem]">
-                  <div className="review-up text-[#9a9a9a] text-[0.9rem] leading-[1.1rem] ">Every cocktail we serve is a reflextion of our<br/>obsession with detail - from the first muddle to the<br/>finalgarnish. That care is what turns a simple drink<br/>into something truly memorable.</div>
-                  <div className="review-down flex">
-                      <div className="review-left w-[50%] ">
-                        <p className=' text-white '>
+              <div className="about-right lg:mr-8 flex flex-col gap-4 sm:gap-6 max-w-md">
+                  <p className="review-up text-slate-400 text-sm sm:text-base leading-relaxed">Every cocktail we serve is a reflection of our obsession with detail — from the first muddle to the final garnish. That care is what turns a simple drink into something truly memorable.</p>
+                  
+                  <div className="review-down flex items-center justify-between bg-white/5 border border-white/10 rounded-2xl p-4">
+                      <div className="review-left">
+                        <p className='text-[#DDCC34] text-sm flex gap-0.5'>
                             <i className="ri-star-smile-fill"></i>
                             <i className="ri-star-smile-fill"></i>
                             <i className="ri-star-smile-fill"></i>
                             <i className="ri-star-smile-fill"></i>
                             <i className="ri-star-smile-fill"></i>
                         </p>
-                        <p className=' text-[1.5rem] font-bold '>4.5/5</p>
-                        <p className=' text-[0.7rem] text-[#989797] '>12000+ customers worldwide</p>
+                        <p className='text-xl sm:text-2xl font-bold mt-1'>4.5/5</p>
+                        <p className='text-[11px] sm:text-xs text-slate-400'>12,000+ customers worldwide</p>
                       </div>
-                      <div className="review-middle transform h-full w-[0.1rem] bg-slate-600 "></div>
 
-                      <div className="review-right w-[50%] flex items-center justify-center ">
-                        <div className='review-images-container relative flex gap- p-[0.35rem] rounded-[20px] '>
-                            <div className='rounded-[50%] bg-black h-[2.1rem] w-[2.1rem] '><img src='/images/profile1.png'></img></div>
-                            <div className='rounded-[50%] bg-black h-[2.1rem] w-[2.1rem] -ml-[0.5rem] '><img src='/images/profile2.png'></img></div>
-                            <div className='rounded-[50%] bg-black h-[2.1rem] w-[2.1rem] -ml-[0.5rem] '><img src='/images/profile3.png'></img></div>
-                            <div className='rounded-[50%] bg-black h-[2.1rem] w-[2.1rem] -ml-[0.5rem] '><img src='/images/profile4.png'></img></div>
+                      <div className="h-12 w-[1px] bg-white/10 mx-2"></div>
 
+                      <div className="review-right flex items-center justify-center">
+                        <div className='review-images-container relative flex p-1.5 rounded-full border border-white/10 shadow-lg'>
+                            <div className='rounded-full overflow-hidden bg-black h-8 w-8 sm:h-9 sm:w-9 border border-white/20'><img src='/images/profile1.png' alt='Customer avatar' className='w-full h-full object-cover' /></div>
+                            <div className='rounded-full overflow-hidden bg-black h-8 w-8 sm:h-9 sm:w-9 -ml-2 border border-white/20'><img src='/images/profile2.png' alt='Customer avatar' className='w-full h-full object-cover' /></div>
+                            <div className='rounded-full overflow-hidden bg-black h-8 w-8 sm:h-9 sm:w-9 -ml-2 border border-white/20'><img src='/images/profile3.png' alt='Customer avatar' className='w-full h-full object-cover' /></div>
+                            <div className='rounded-full overflow-hidden bg-black h-8 w-8 sm:h-9 sm:w-9 -ml-2 border border-white/20'><img src='/images/profile4.png' alt='Customer avatar' className='w-full h-full object-cover' /></div>
                         </div>
                       </div>
                   </div>
               </div>
         </div>
 
-        <div className="about-down parent h-[40%] w-[100%]">
-            <div className="div1 grid-top-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt1.png)]"></div>
-            <div className="div2 grid-top-row rounded-[15px] py-[1rem] px-[1rem] ">
-                <p className=' font-negra text-[2rem] '>Crafted to Impress</p>
-                <div className=' h-[3px] w-[80%] mb-[1rem] rounded-[2px] bg-[#6a6a6a] '></div>
-                <p className='flex gap-[0.3rem] mb-[0.4rem] ml-[0.5rem] font-extralight text-[#b5b5b5] '><i className="ri-check-double-line"></i>Perfectly balanced blends</p>
-                <p className='flex gap-[0.3rem] mb-[0.4rem] ml-[0.5rem] font-extralight text-[#b5b5b5] '><i className="ri-check-double-line"></i>Garnished to perfection</p>
-                <p className='flex gap-[0.3rem] mb-[0.4rem] ml-[0.5rem] font-extralight text-[#b5b5b5] '><i className="ri-check-double-line"></i>Ice-cold every time</p>
+        <div className="about-down parent w-full">
+            <div className="div1 grid-top-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt1.png)] min-h-[180px] sm:min-h-[220px]"></div>
+            <div className="div2 grid-top-row rounded-[15px] p-5 sm:p-6 flex flex-col justify-center border border-white/10">
+                <p className='font-negra text-2xl sm:text-3xl text-white'>Crafted to Impress</p>
+                <div className='h-[2px] w-24 my-3 rounded-full bg-[#ddcc34]'></div>
+                <p className='flex items-center gap-2 mb-2 font-normal text-xs sm:text-sm text-slate-300'><i className="ri-check-double-line text-[#ddcc34]"></i>Perfectly balanced blends</p>
+                <p className='flex items-center gap-2 mb-2 font-normal text-xs sm:text-sm text-slate-300'><i className="ri-check-double-line text-[#ddcc34]"></i>Garnished to perfection</p>
+                <p className='flex items-center gap-2 font-normal text-xs sm:text-sm text-slate-300'><i className="ri-check-double-line text-[#ddcc34]"></i>Ice-cold every time</p>
             </div>
-            <div className="div3 grid-top-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt2.png)]"></div>
-            <div className="div4 grid-bottom-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt3.png)]"></div>
-            <div className="div5 grid-bottom-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt4.png)]"></div>
+            <div className="div3 grid-top-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt2.png)] min-h-[180px] sm:min-h-[220px]"></div>
+            <div className="div4 grid-bottom-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt3.png)] min-h-[180px] sm:min-h-[220px]"></div>
+            <div className="div5 grid-bottom-row rounded-[15px] bg-center bg-cover bg-[url(/images/abt4.png)] min-h-[180px] sm:min-h-[220px]"></div>
         </div>
     </div>
   )
