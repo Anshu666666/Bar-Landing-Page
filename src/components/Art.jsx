@@ -12,8 +12,8 @@ const Art = () => {
 	 scrollTrigger: {
 		trigger: '#art',
 		start: 'top top',
-		end: '+=120%',
-		scrub: 1,
+		end: '+=180%',
+		scrub: 1.2,
 		pin: true,
 	 }
 	})
@@ -22,13 +22,13 @@ const Art = () => {
 	 .to('.will-fade', { opacity: 0, duration: 0.3, ease: 'power1.inOut' })
 	 .to('.masked-img', { 
        maskPosition: 'center',
-       WebkitMaskPosition: 'center',
-       maskSize: '350%',
-       WebkitMaskSize: '350%',
-       duration: 0.9, 
+       webkitMaskPosition: 'center',
+       maskSize: '400%',
+       webkitMaskSize: '400%',
+       duration: 1, 
        ease: 'power1.inOut'
      }, "-=0.1")
-	 .fromTo('#masked-content',{opacity:0, y: 25}, { opacity: 1, y: 0, duration: 0.5, ease: 'power1.out'}, "-=0.2")
+	 .fromTo('#masked-content',{opacity:0, y: 25}, { opacity: 1, y: 0, duration: 0.6, ease: 'power1.out'}, "-=0.2")
  }, [])
 
   return (

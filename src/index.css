@@ -53,7 +53,7 @@ main {
   }
 
   .noisy {
-    @apply absolute inset-0 h-[100vh] w-full bg-[url("/images/noise.webp")] pointer-events-none;
+    background-image: url("/images/noise.webp");
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -102,14 +102,17 @@ main {
 
 @media (max-width: 639px) {
   .parent {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
     width: 100%;
   }
   .div1, .div3, .div4, .div5 {
-    height: 220px;
+    height: 140px;
     width: 100%;
+  }
+  .div2 {
+    grid-column: span 2;
   }
 }
 

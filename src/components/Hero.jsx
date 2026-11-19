@@ -7,7 +7,8 @@ const Hero = ({navbarHeight}) => {
   const titleRef = useRef(null)
   const subtitleRef1 = useRef(null)
   const subtitleRef2 = useRef(null)
-  const videoRef = useRef()
+  const videoRef = useRef(null)
+  const videoWrapperRef = useRef(null)
 
   useGSAP(() => {
     document.fonts.ready.then(()=>{
@@ -53,37 +54,58 @@ const Hero = ({navbarHeight}) => {
         
       }, "2-same-time")
 
-      const startValue = window.innerWidth <= 768 ? 'top 75%' : 'top 60%';
-
       const setupVideoScrollTrigger = () => {
         if (!videoRef.current || isNaN(videoRef.current.duration) || videoRef.current.duration === 0) return;
 
+        // Ensure video starts at initial frame
+        videoRef.current.currentTime = 0;
+
+        // Pin video across Hero and Cocktails, starting playback immediately on scroll
         gsap.timeline({
           scrollTrigger: {
-            trigger: videoRef.current,
-            start: startValue,
+            trigger: ".hero",
+            start: "top top",
             endTrigger: "#cocktails",
-            end: "bottom top",
-            scrub: 1.5,
-            pin: true,
+            end: "bottom bottom",
+            scrub: 1.2,
+            pin: videoWrapperRef.current,
+            pinSpacing: false,
           }
         }).to(videoRef.current, {
           currentTime: videoRef.current.duration,
           ease: 'none',
         });
+
+        // Smoothly fade video out as the user enters the About section
+        gsap.to(videoWrapperRef.current, {
+          scrollTrigger: {
+            trigger: '#about',
+            start: 'top 95%',
+            end: 'top 70%',
+            scrub: true,
+          },
+          opacity: 0,
+          ease: 'none',
+        });
       };
 
-    // Run immediately if metadata is already loaded (e.g., cached video)
-    if (videoRef.current.readyState >= 1) {
-      setupVideoScrollTrigger();
-    } else {
-      videoRef.current.onloadedmetadata = setupVideoScrollTrigger;
-    }
+      const handleVideoReady = () => {
+        if (videoRef.current && videoRef.current.duration > 0) {
+          setupVideoScrollTrigger();
+        }
+      };
 
+      if (videoRef.current) {
+        if (videoRef.current.readyState >= 1 && videoRef.current.duration > 0) {
+          setupVideoScrollTrigger();
+        } else {
+          videoRef.current.addEventListener('loadedmetadata', handleVideoReady, { once: true });
+          videoRef.current.addEventListener('canplay', handleVideoReady, { once: true });
+          videoRef.current.load();
+        }
+      }
 
   })
-
-    
 
 }, []);
 
@@ -124,10 +146,10 @@ const Hero = ({navbarHeight}) => {
 
     </section>
 
-    <div className='video absolute z-0 w-full max-w-[100vw] h-[80%] max-md:h-[50%] bottom-0 overflow-hidden pointer-events-none'>
+    <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-20 flex items-end justify-center'>
       <video 
         ref={videoRef} 
-        className='absolute h-full w-auto max-w-full bottom-0 left-1/2 -translate-x-1/2 max-md:object-contain object-contain pointer-events-none' 
+        className='h-[62vh] sm:h-[72vh] md:h-[80vh] w-auto max-w-[95vw] object-contain pointer-events-none drop-shadow-2xl' 
         src='/videos/output.mp4' 
         muted 
         playsInline 

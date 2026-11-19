@@ -11,15 +11,16 @@ const Navbar = forwardRef((props, ref) => {
     useGSAP(()=>{
         const navTween = gsap.timeline({
             scrollTrigger:{
-                trigger: "nav",
-                start: "top top"
+                trigger: "body",
+                start: "20px top",
+                toggleActions: "play none none reverse"
             }
         })
 
-        navTween.fromTo("nav",{ backgroundColor: 'transparent'},{
-            backgroundColor: "#00000080",
-            backdropFilter: 'blur(12px)',
-            duration: 1,
+        navTween.to("nav", {
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            backdropFilter: 'blur(16px)',
+            duration: 0.3,
             ease: 'power1.inOut'
         })
     }, [])
