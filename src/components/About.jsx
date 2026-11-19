@@ -32,7 +32,7 @@ const About = () => {
     }, [])
 
   return (
-    <div id='about' className='about bg-transparent w-full px-4 sm:px-8 md:px-12 lg:p-[4rem] py-14 sm:py-20 flex flex-col gap-10 md:gap-14 lg:gap-[5rem]'>
+    <div id='about' className='about relative z-30 bg-black w-full px-4 sm:px-8 md:px-12 lg:p-[4rem] py-14 sm:py-20 flex flex-col gap-10 md:gap-14 lg:gap-[5rem]'>
         <div className="about-up flex flex-col lg:flex-row justify-between gap-8 lg:gap-12">
               <div className="about-left flex flex-col gap-4 sm:gap-6 max-w-xl">
                   <span className='w-max bg-white rounded-full text-black text-xs py-1 px-3.5 flex items-center font-bold tracking-wide uppercase shadow-sm'>Best Cocktails</span>

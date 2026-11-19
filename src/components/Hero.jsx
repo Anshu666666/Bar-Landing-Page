@@ -9,6 +9,7 @@ const Hero = ({ navbarHeight }) => {
   const subtitleRef2 = useRef(null)
   const videoRef = useRef(null)
   const videoWrapperRef = useRef(null)
+  const posterRef = useRef(null)
 
   useGSAP(() => {
     document.fonts.ready.then(() => {
@@ -55,41 +56,64 @@ const Hero = ({ navbarHeight }) => {
       }, "2-same-time")
 
       const setupVideoScrollTrigger = () => {
-        if (!videoRef.current || isNaN(videoRef.current.duration) || videoRef.current.duration === 0) return;
+        if (!videoRef.current) return;
 
         const video = videoRef.current;
-        // Keep 0.08s before duration so mobile browsers never trigger 'ended' event
-        const maxTime = Math.max(0, video.duration - 0.08);
+        const duration = (!isNaN(video.duration) && video.duration > 0) ? video.duration : 12.95;
+        const maxTime = Math.max(0, duration - 0.08);
 
         // Ensure video starts at initial frame
         video.currentTime = 0.001;
 
-        // Pin video across #hero-cocktails-stage, starting playback immediately from top through Cocktails
-        gsap.timeline({
+        // Scrub video playback across #hero-cocktails-stage
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: "#hero-cocktails-stage",
             start: "top top",
-            end: "bottom bottom",
+            end: "bottom top",
             scrub: 1.2,
-            pin: videoWrapperRef.current,
-            pinSpacing: false,
-            invalidateOnRefresh: true,
+            onLeave: () => {
+              if (videoWrapperRef.current) gsap.set(videoWrapperRef.current, { autoAlpha: 0 });
+            },
+            onEnterBack: () => {
+              if (videoWrapperRef.current) gsap.set(videoWrapperRef.current, { autoAlpha: 1 });
+            },
           }
-        }).to(video, {
+        });
+
+        // Play the video scrub from Y=0 until Cocktails is in view (first half of stage)
+        tl.to(video, {
           currentTime: maxTime,
           ease: 'none',
-        });
-      };
+          duration: 0.5,
+        }, 0);
 
-      const handleVideoReady = () => {
-        if (videoRef.current && videoRef.current.duration > 0) {
-          setupVideoScrollTrigger();
+        // Keep video held at final frame throughout Cocktails view so it never disappears
+        tl.to(video, {
+          currentTime: maxTime,
+          ease: 'none',
+          duration: 0.5,
+        }, 0.5);
+
+        if (posterRef.current) {
+          // Fade poster out cleanly as scroll starts, fade back in on return to top
+          tl.to(posterRef.current, {
+            opacity: 0,
+            duration: 0.05,
+            ease: 'power1.out',
+          }, 0);
         }
       };
+
+      setupVideoScrollTrigger();
 
       if (videoRef.current) {
         const video = videoRef.current;
         video.currentTime = 0.001;
+
+        video.addEventListener('loadedmetadata', () => {
+          setupVideoScrollTrigger();
+        }, { once: true });
 
         // Safety fallback if ended event ever fires
         video.addEventListener('ended', () => {
@@ -97,14 +121,6 @@ const Hero = ({ navbarHeight }) => {
             videoRef.current.currentTime = Math.max(0, videoRef.current.duration - 0.08);
           }
         });
-
-        if (video.readyState >= 1 && video.duration > 0) {
-          setupVideoScrollTrigger();
-        } else {
-          video.addEventListener('loadedmetadata', handleVideoReady, { once: true });
-          video.addEventListener('canplay', handleVideoReady, { once: true });
-          video.load();
-        }
       }
 
     })
@@ -116,9 +132,13 @@ const Hero = ({ navbarHeight }) => {
 
   return (
     <>
-      <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-10 flex items-end justify-center'>
+      <div 
+        ref={videoWrapperRef} 
+        className='video-container fixed inset-0 w-full h-screen pointer-events-none z-10 flex items-end justify-center'
+      >
         {/* Instant first-frame poster ensuring glass is never blank on initial load */}
         <img
+          ref={posterRef}
           src='/images/cocktail-poster.jpg'
           alt='Mojito Cocktail'
           className='absolute h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
@@ -134,17 +154,17 @@ const Hero = ({ navbarHeight }) => {
       </div>
 
       <section style={{ height: `calc(100vh - ${navbarHeight}px)` }} className='hero bg-transparent relative z-20 max-md:mt-[4.5rem] mt-[3.5rem] h-[calc(100vh-4.5rem)] w-full flex flex-col items-center overflow-hidden pointer-events-none'>
-        <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight z-30 pointer-events-none select-none'>MOJITO</h1>
+        <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight z-[35] pointer-events-none select-none'>MOJITO</h1>
         <img src='/images/hero-left-leaf.png'
           alt='Hero left leaf'
-          className='left-leaf absolute z-30 left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
+          className='left-leaf absolute z-[28] left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
         />
         <img src='/images/hero-right-leaf.png'
           alt='Hero right leaf'
-          className='right-leaf absolute z-30 right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
+          className='right-leaf absolute z-[28] right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
         />
 
-        <div className="body w-full h-full relative z-30 pointer-events-auto">
+        <div className="body w-full h-full relative z-[35] pointer-events-auto">
           <div className="content">
             <div className='max-md:hidden md:block absolute bottom-8 left-6 lg:left-12 max-w-xs'>
               <p className='text-sm md:text-base text-slate-300'>Cool. Crisp. Classic.</p>

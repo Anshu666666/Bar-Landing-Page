@@ -30,15 +30,15 @@ const Cocktails = ({navbarHeight}) => {
     
         <img src='/images/hero-left-leaf.png'
             alt='Decorative leaf'
-            className='cocktail-left-leaf absolute z-20 -left-[4rem] sm:-left-[3rem] -bottom-[2rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
+            className='cocktail-left-leaf absolute z-[28] -left-[4rem] sm:-left-[3rem] -bottom-[2rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
         />
         <img src='/images/hero-right-leaf.png'
             alt='Decorative leaf'
-            className='cocktail-right-leaf absolute z-20 -right-[4rem] sm:-right-[3rem] bottom-[6rem] sm:bottom-[10rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
+            className='cocktail-right-leaf absolute z-[28] -right-[4rem] sm:-right-[3rem] bottom-[6rem] sm:bottom-[10rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
         />
         
         {/* Left Column: Most popular cocktails */}
-        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-30 top-16 sm:top-20 md:top-24 lg:top-[7rem] left-3 sm:left-6 lg:left-[3rem]'>
+        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-[35] top-20 sm:top-24 md:top-24 lg:top-[7rem] left-3 sm:left-6 lg:left-[3rem]'>
             <p className='text-[10px] sm:text-xs uppercase tracking-widest text-[#ddcc34] sm:text-slate-300 lg:text-white my-1 sm:my-[0.6rem] font-semibold'>Most popular cocktails</p>
             {cocktailLists.map((cocktail)=>(
                 <div key={cocktail.name} className='flex justify-between items-start mb-2 sm:mb-[1.3rem] lg:mb-[1.5rem]'>
@@ -54,7 +54,7 @@ const Cocktails = ({navbarHeight}) => {
         </div>
 
         {/* Right Column: Most popular mocktails */}
-        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-30 top-16 sm:top-20 md:top-24 lg:top-[7rem] right-3 sm:right-6 lg:right-[3rem] text-right'>
+        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-[35] top-20 sm:top-24 md:top-24 lg:top-[7rem] right-3 sm:right-6 lg:right-[3rem] text-right'>
             <p className='text-[10px] sm:text-xs uppercase tracking-widest text-[#ddcc34] sm:text-slate-300 lg:text-white my-1 sm:my-[0.6rem] font-semibold'>Most popular mocktails</p>
             {mockTailLists.map((mocktail) => (
                 <div key={mocktail.name} className='flex justify-between items-start mb-2 sm:mb-[1.3rem] lg:mb-[1.5rem] flex-row-reverse'>
