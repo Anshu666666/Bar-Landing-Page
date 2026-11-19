@@ -55,6 +55,8 @@ const Hero = ({ navbarHeight }) => {
 
       }, "2-same-time")
 
+      let videoTimeline = null;
+
       const setupVideoScrollTrigger = () => {
         if (!videoRef.current) return;
 
@@ -62,11 +64,12 @@ const Hero = ({ navbarHeight }) => {
         const duration = (!isNaN(video.duration) && video.duration > 0) ? video.duration : 12.95;
         const maxTime = Math.max(0, duration - 0.08);
 
-        // Ensure video starts at initial frame
-        video.currentTime = 0.001;
+        if (videoTimeline) {
+          videoTimeline.kill();
+        }
 
         // Scrub video playback across #hero-cocktails-stage
-        const tl = gsap.timeline({
+        videoTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: "#hero-cocktails-stage",
             start: "top top",
@@ -82,34 +85,57 @@ const Hero = ({ navbarHeight }) => {
         });
 
         // Play the video scrub from Y=0 until Cocktails is in view (first half of stage)
-        tl.to(video, {
+        videoTimeline.fromTo(video, {
+          currentTime: 0.001,
+        }, {
           currentTime: maxTime,
           ease: 'none',
           duration: 0.5,
         }, 0);
 
         // Keep video held at final frame throughout Cocktails view so it never disappears
-        tl.to(video, {
+        videoTimeline.to(video, {
           currentTime: maxTime,
           ease: 'none',
           duration: 0.5,
         }, 0.5);
-
-        if (posterRef.current) {
-          // Fade poster out cleanly as scroll starts, fade back in on return to top
-          tl.to(posterRef.current, {
-            opacity: 0,
-            duration: 0.05,
-            ease: 'power1.out',
-          }, 0);
-        }
       };
 
       setupVideoScrollTrigger();
 
       if (videoRef.current) {
         const video = videoRef.current;
+
+        // Force browser engine to decode and paint the first frame immediately
         video.currentTime = 0.001;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            video.pause();
+            video.currentTime = 0.001;
+          }).catch(() => {});
+        }
+
+        const handleVideoReady = () => {
+          setupVideoScrollTrigger();
+          // Fade poster out cleanly once video frame is painted
+          if (posterRef.current) {
+            gsap.to(posterRef.current, {
+              opacity: 0,
+              duration: 0.4,
+              ease: 'power1.out',
+              onComplete: () => {
+                if (posterRef.current) posterRef.current.style.display = 'none';
+              }
+            });
+          }
+        };
+
+        if (video.readyState >= 2) {
+          handleVideoReady();
+        } else {
+          video.addEventListener('loadeddata', handleVideoReady, { once: true });
+        }
 
         video.addEventListener('loadedmetadata', () => {
           setupVideoScrollTrigger();
@@ -134,18 +160,18 @@ const Hero = ({ navbarHeight }) => {
     <>
       <div 
         ref={videoWrapperRef} 
-        className='video-container fixed inset-0 w-full h-screen pointer-events-none z-10 flex items-end justify-center'
+        className='video-container fixed inset-0 w-full h-screen pointer-events-none z-10 flex items-end justify-center overflow-hidden'
       >
         {/* Instant first-frame poster ensuring glass is never blank on initial load */}
         <img
           ref={posterRef}
           src='/images/cocktail-poster.jpg'
           alt='Mojito Cocktail'
-          className='absolute h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
+          className='absolute h-[68vh] sm:h-[76vh] md:h-[84vh] lg:h-[90vh] w-auto max-w-none object-contain pointer-events-none mix-blend-screen'
         />
         <video
           ref={videoRef}
-          className='relative h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
+          className='relative h-[68vh] sm:h-[76vh] md:h-[84vh] lg:h-[90vh] w-auto max-w-none object-contain pointer-events-none mix-blend-screen'
           src='/videos/output.mp4'
           muted
           playsInline
@@ -157,11 +183,11 @@ const Hero = ({ navbarHeight }) => {
         <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight z-[35] pointer-events-none select-none'>MOJITO</h1>
         <img src='/images/hero-left-leaf.png'
           alt='Hero left leaf'
-          className='left-leaf absolute z-[28] left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
+          className='left-leaf absolute z-[28] left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-80 sm:opacity-90 md:opacity-100'
         />
         <img src='/images/hero-right-leaf.png'
           alt='Hero right leaf'
-          className='right-leaf absolute z-[28] right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
+          className='right-leaf absolute z-[28] right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-80 sm:opacity-90 md:opacity-100'
         />
 
         <div className="body w-full h-full relative z-[35] pointer-events-auto">

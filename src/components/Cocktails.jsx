@@ -30,11 +30,11 @@ const Cocktails = ({navbarHeight}) => {
     
         <img src='/images/hero-left-leaf.png'
             alt='Decorative leaf'
-            className='cocktail-left-leaf absolute z-[28] -left-[4rem] sm:-left-[3rem] -bottom-[2rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
+            className='cocktail-left-leaf absolute z-[28] -left-[4rem] sm:-left-[3rem] -bottom-[2rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-80 sm:opacity-90 lg:opacity-100'
         />
         <img src='/images/hero-right-leaf.png'
             alt='Decorative leaf'
-            className='cocktail-right-leaf absolute z-[28] -right-[4rem] sm:-right-[3rem] bottom-[6rem] sm:bottom-[10rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
+            className='cocktail-right-leaf absolute z-[28] -right-[4rem] sm:-right-[3rem] bottom-[6rem] sm:bottom-[10rem] w-28 sm:w-36 lg:w-[13rem] h-auto pointer-events-none opacity-80 sm:opacity-90 lg:opacity-100'
         />
         
         {/* Left Column: Most popular cocktails */}
