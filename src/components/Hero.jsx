@@ -183,11 +183,11 @@ const Hero = ({ navbarHeight }) => {
         <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight z-[35] pointer-events-none select-none'>MOJITO</h1>
         <img src='/images/hero-left-leaf.png'
           alt='Hero left leaf'
-          className='left-leaf absolute z-[28] left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-80 sm:opacity-90 md:opacity-100'
+          className='left-leaf absolute z-[28] -left-4 sm:left-0 top-[1.5rem] sm:top-[3rem] md:top-[5rem] w-40 sm:w-48 md:w-48 lg:w-[14rem] h-auto pointer-events-none opacity-85 sm:opacity-90 md:opacity-100'
         />
         <img src='/images/hero-right-leaf.png'
           alt='Hero right leaf'
-          className='right-leaf absolute z-[28] right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-80 sm:opacity-90 md:opacity-100'
+          className='right-leaf absolute z-[28] -right-4 sm:right-0 top-[4.5rem] sm:top-[4rem] md:top-0 w-40 sm:w-48 md:w-48 lg:w-[14rem] h-auto pointer-events-none opacity-85 sm:opacity-90 md:opacity-100'
         />
 
         <div className="body w-full h-full relative z-[35] pointer-events-auto">

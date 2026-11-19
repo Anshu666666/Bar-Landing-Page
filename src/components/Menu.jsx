@@ -63,11 +63,11 @@ const Menu = () => {
     <div id='menu' className='relative w-full h-[100vh] overflow-hidden'>
         <img src='/images/slider-left-leaf.png'
             alt='Slider leaf'
-            className='absolute z-10 left-0 bottom-0 w-24 sm:w-32 md:w-44 lg:h-[34vh] lg:w-[27vh] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
+            className='absolute z-10 -left-4 sm:left-0 bottom-0 w-36 sm:w-40 md:w-44 lg:h-[34vh] lg:w-[27vh] h-auto pointer-events-none opacity-70 sm:opacity-80 lg:opacity-100'
         />
         <img src='/images/slider-right-leaf.png'
             alt='Slider leaf'
-            className='absolute z-10 right-0 top-0 w-24 sm:w-32 md:w-44 lg:h-[34vh] lg:w-[27vh] h-auto pointer-events-none opacity-40 sm:opacity-70 lg:opacity-100'
+            className='absolute z-10 -right-4 sm:right-0 top-0 w-36 sm:w-40 md:w-44 lg:h-[34vh] lg:w-[27vh] h-auto pointer-events-none opacity-70 sm:opacity-80 lg:opacity-100'
         />
 
         {/* Top Category Selectors */}
