@@ -57,13 +57,22 @@ function App() {
   }, []);
   
 
+  const handleLoaderComplete = () => {
+    setIsLoading(false);
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+  };
+
   return (
     <>
-      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+      {isLoading && <Loader onComplete={handleLoaderComplete} />}
       <main className='w-full max-w-[100vw] overflow-x-hidden relative'>
         <Navbar ref={navbarRef} />
-        <Hero navbarHeight={navbarHeight}/>
-        <Cocktails navbarHeight={navbarHeight}/>
+        <div id='hero-cocktails-stage' className='relative w-full overflow-hidden noisy'>
+          <Hero navbarHeight={navbarHeight}/>
+          <Cocktails navbarHeight={navbarHeight}/>
+        </div>
         <About />
         <Art />
         <Menu />

@@ -26,7 +26,7 @@ const Cocktails = ({navbarHeight}) => {
     }, [])
 
   return (
-    <div id='cocktails' ref={hero2} className='relative overflow-hidden border border-transparent z-40 w-full max-w-[100vw] bg-transparent h-[100vh]'>
+    <div id='cocktails' ref={hero2} className='relative overflow-hidden border border-transparent z-20 w-full max-w-[100vw] bg-transparent h-[100vh]'>
     
         <img src='/images/hero-left-leaf.png'
             alt='Decorative leaf'
@@ -38,7 +38,7 @@ const Cocktails = ({navbarHeight}) => {
         />
         
         {/* Left Column: Most popular cocktails */}
-        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-40 top-16 sm:top-20 md:top-24 lg:top-[7rem] left-3 sm:left-6 lg:left-[3rem]'>
+        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-30 top-16 sm:top-20 md:top-24 lg:top-[7rem] left-3 sm:left-6 lg:left-[3rem]'>
             <p className='text-[10px] sm:text-xs uppercase tracking-widest text-[#ddcc34] sm:text-slate-300 lg:text-white my-1 sm:my-[0.6rem] font-semibold'>Most popular cocktails</p>
             {cocktailLists.map((cocktail)=>(
                 <div key={cocktail.name} className='flex justify-between items-start mb-2 sm:mb-[1.3rem] lg:mb-[1.5rem]'>
@@ -54,7 +54,7 @@ const Cocktails = ({navbarHeight}) => {
         </div>
 
         {/* Right Column: Most popular mocktails */}
-        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-40 top-16 sm:top-20 md:top-24 lg:top-[7rem] right-3 sm:right-6 lg:right-[3rem] text-right'>
+        <div className='w-[44%] max-w-[170px] sm:max-w-xs md:w-72 lg:w-[20rem] absolute z-30 top-16 sm:top-20 md:top-24 lg:top-[7rem] right-3 sm:right-6 lg:right-[3rem] text-right'>
             <p className='text-[10px] sm:text-xs uppercase tracking-widest text-[#ddcc34] sm:text-slate-300 lg:text-white my-1 sm:my-[0.6rem] font-semibold'>Most popular mocktails</p>
             {mockTailLists.map((mocktail) => (
                 <div key={mocktail.name} className='flex justify-between items-start mb-2 sm:mb-[1.3rem] lg:mb-[1.5rem] flex-row-reverse'>
