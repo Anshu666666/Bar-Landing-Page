@@ -30,7 +30,6 @@ body {
     width: 100%;
     background-color: black;
     color: white;
-    scroll-behavior: smooth;
     overflow-x: hidden;
     font-family: 'SF Pro Display', sans-serif;
 }
