@@ -116,6 +116,23 @@ const Hero = ({ navbarHeight }) => {
 
   return (
     <>
+      <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-10 flex items-end justify-center'>
+        {/* Instant first-frame poster ensuring glass is never blank on initial load */}
+        <img
+          src='/images/cocktail-poster.jpg'
+          alt='Mojito Cocktail'
+          className='absolute h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
+        />
+        <video
+          ref={videoRef}
+          className='relative h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
+          src='/videos/output.mp4'
+          muted
+          playsInline
+          preload='auto'
+        />
+      </div>
+
       <section style={{ height: `calc(100vh - ${navbarHeight}px)` }} className='hero bg-transparent relative z-20 max-md:mt-[4.5rem] mt-[3.5rem] h-[calc(100vh-4.5rem)] w-full flex flex-col items-center overflow-hidden pointer-events-none'>
         <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight z-30 pointer-events-none select-none'>MOJITO</h1>
         <img src='/images/hero-left-leaf.png'
@@ -147,23 +164,6 @@ const Hero = ({ navbarHeight }) => {
         </div>
 
       </section>
-
-      <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-10 flex items-end justify-center'>
-        {/* Instant first-frame poster ensuring glass is never blank on initial load */}
-        <img
-          src='/images/cocktail-poster.jpg'
-          alt='Mojito Cocktail'
-          className='absolute h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
-        />
-        <video
-          ref={videoRef}
-          className='relative h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
-          src='/videos/output.mp4'
-          muted
-          playsInline
-          preload='auto'
-        />
-      </div>
     </>
   )
 }
