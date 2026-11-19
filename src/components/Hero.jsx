@@ -58,19 +58,18 @@ const Hero = ({ navbarHeight }) => {
         if (!videoRef.current || isNaN(videoRef.current.duration) || videoRef.current.duration === 0) return;
 
         const video = videoRef.current;
-        // Keep 0.08s before duration so mobile browsers never trigger 'ended' event (which can clear the frame buffer)
+        // Keep 0.08s before duration so mobile browsers never trigger 'ended' event
         const maxTime = Math.max(0, video.duration - 0.08);
 
-        // Ensure video is queued at first frame
-        video.currentTime = 0.01;
+        // Ensure video starts at initial frame
+        video.currentTime = 0.001;
 
-        // Pin video across Hero until Cocktails occupies the viewport
+        // Pin video across #hero-cocktails-stage, starting playback immediately from top through Cocktails
         gsap.timeline({
           scrollTrigger: {
             trigger: "#hero-cocktails-stage",
             start: "top top",
-            endTrigger: "#cocktails",
-            end: "top top",
+            end: "bottom bottom",
             scrub: 1.2,
             pin: videoWrapperRef.current,
             pinSpacing: false,
@@ -90,7 +89,7 @@ const Hero = ({ navbarHeight }) => {
 
       if (videoRef.current) {
         const video = videoRef.current;
-        video.currentTime = 0.01;
+        video.currentTime = 0.001;
 
         // Safety fallback if ended event ever fires
         video.addEventListener('ended', () => {
@@ -99,27 +98,10 @@ const Hero = ({ navbarHeight }) => {
           }
         });
 
-        // Trigger hardware video decoder on mobile so the first frame is painted instantly
-        const unlockMobileVideo = () => {
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              video.pause();
-              video.currentTime = 0.01;
-            }).catch(() => {
-              video.currentTime = 0.01;
-            });
-          }
-        };
-
         if (video.readyState >= 1 && video.duration > 0) {
           setupVideoScrollTrigger();
-          unlockMobileVideo();
         } else {
-          video.addEventListener('loadedmetadata', () => {
-            handleVideoReady();
-            unlockMobileVideo();
-          }, { once: true });
+          video.addEventListener('loadedmetadata', handleVideoReady, { once: true });
           video.addEventListener('canplay', handleVideoReady, { once: true });
           video.load();
         }
@@ -166,11 +148,16 @@ const Hero = ({ navbarHeight }) => {
 
       </section>
 
-      <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-20 flex items-end justify-center'>
+      <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-10 flex items-end justify-center'>
+        {/* Instant first-frame poster ensuring glass is never blank on initial load */}
+        <img
+          src='/images/cocktail-poster.jpg'
+          alt='Mojito Cocktail'
+          className='absolute h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
+        />
         <video
           ref={videoRef}
-          poster='/images/cocktail-poster.jpg'
-          className='h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none drop-shadow-2xl mix-blend-screen'
+          className='relative h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none mix-blend-screen'
           src='/videos/output.mp4'
           muted
           playsInline

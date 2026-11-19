@@ -69,9 +69,11 @@ function App() {
       {isLoading && <Loader onComplete={handleLoaderComplete} />}
       <main className='w-full max-w-[100vw] overflow-x-hidden relative'>
         <Navbar ref={navbarRef} />
-        <div id='hero-cocktails-stage' className='relative w-full overflow-hidden noisy'>
+        <div id='hero-cocktails-stage' className='relative w-full overflow-hidden bg-black'>
           <Hero navbarHeight={navbarHeight}/>
           <Cocktails navbarHeight={navbarHeight}/>
+          {/* Film grain noise overlay on top of video, hero, and cocktails */}
+          <div className='pointer-events-none absolute inset-0 z-[25] noisy' />
         </div>
         <About />
         <Art />
