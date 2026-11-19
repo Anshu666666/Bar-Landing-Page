@@ -60,10 +60,10 @@ const Hero = ({navbarHeight}) => {
         // Ensure video starts at initial frame
         videoRef.current.currentTime = 0;
 
-        // Pin video across Hero and Cocktails, starting playback immediately on scroll
+        // Pin video across Hero and Cocktails, starting playback immediately from top
         gsap.timeline({
           scrollTrigger: {
-            trigger: ".hero",
+            trigger: "main",
             start: "top top",
             endTrigger: "#cocktails",
             end: "bottom bottom",
@@ -73,18 +73,6 @@ const Hero = ({navbarHeight}) => {
           }
         }).to(videoRef.current, {
           currentTime: videoRef.current.duration,
-          ease: 'none',
-        });
-
-        // Smoothly fade video out as the user enters the About section
-        gsap.to(videoWrapperRef.current, {
-          scrollTrigger: {
-            trigger: '#about',
-            start: 'top 95%',
-            end: 'top 70%',
-            scrub: true,
-          },
-          opacity: 0,
           ease: 'none',
         });
       };
@@ -114,18 +102,18 @@ const Hero = ({navbarHeight}) => {
 
   return (
     <>
-    <section style={{ height: `calc(100vh - ${navbarHeight}px)` }} className='hero noisy relative z-10 max-md:mt-[4.5rem] mt-[3.5rem] h-[calc(100vh-4.5rem)] w-full flex flex-col items-center overflow-hidden'>
-        <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight'>MOJITO</h1>
+    <section style={{ height: `calc(100vh - ${navbarHeight}px)` }} className='hero noisy relative z-20 max-md:mt-[4.5rem] mt-[3.5rem] h-[calc(100vh-4.5rem)] w-full flex flex-col items-center overflow-hidden pointer-events-none'>
+        <h1 ref={titleRef} className='absolute font-negra text-[22vw] leading-[22vw] top-[2.5rem] sm:top-[3rem] tracking-tight z-30 pointer-events-none select-none'>MOJITO</h1>
         <img src='/images/hero-left-leaf.png' 
              alt='Hero left leaf'
-             className='left-leaf absolute z-20 left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
+             className='left-leaf absolute z-30 left-0 top-[2rem] sm:top-[3rem] md:top-[5rem] w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
              />
         <img src='/images/hero-right-leaf.png' 
               alt='Hero right leaf'
-              className='right-leaf absolute z-20 right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
+              className='right-leaf absolute z-30 right-0 top-[6rem] sm:top-[4rem] md:top-0 w-24 sm:w-36 md:w-44 lg:w-[13rem] h-auto pointer-events-none opacity-70 md:opacity-100'
             />
 
-        <div className="body w-full h-full relative">
+        <div className="body w-full h-full relative z-30 pointer-events-auto">
           <div className="content">
             <div className='max-md:hidden md:block absolute bottom-8 left-6 lg:left-12 max-w-xs'>
               <p className='text-sm md:text-base text-slate-300'>Cool. Crisp. Classic.</p>
@@ -137,7 +125,7 @@ const Hero = ({navbarHeight}) => {
             </div>
 
             {/* Mobile-only subtle scroll prompt */}
-            <div className='md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-center pointer-events-none w-full px-4'>
+            <div className='md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 text-center pointer-events-none w-full px-4'>
               <span className='text-xs uppercase tracking-widest text-[#ddcc34] font-medium'>Sip the Spirit of Summer</span>
               <span className='text-[11px] text-slate-400 flex items-center gap-1 animate-pulse'>Scroll down <i className="ri-arrow-down-s-line"></i></span>
             </div>
@@ -146,10 +134,10 @@ const Hero = ({navbarHeight}) => {
 
     </section>
 
-    <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-20 flex items-end justify-center'>
+    <div ref={videoWrapperRef} className='video-container absolute top-0 left-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-10 flex items-end justify-center'>
       <video 
         ref={videoRef} 
-        className='h-[62vh] sm:h-[72vh] md:h-[80vh] w-auto max-w-[95vw] object-contain pointer-events-none drop-shadow-2xl' 
+        className='h-[46vh] sm:h-[52vh] md:h-[58vh] w-auto max-w-[95vw] object-contain pointer-events-none drop-shadow-2xl mix-blend-screen' 
         src='/videos/output.mp4' 
         muted 
         playsInline 
