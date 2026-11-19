@@ -4,6 +4,7 @@ import 'lenis/dist/lenis.css'
 import Lenis from 'lenis'
 import {gsap} from 'gsap'
 import { ScrollTrigger, SplitText } from "gsap/all"
+import Loader from './components/Loader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Cocktails from './components/Cocktails'
@@ -16,6 +17,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 function App() {
   const navbarRef = useRef(null);
   const [navbarHeight, setNavbarHeight] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Initialize Lenis smooth scrolling
@@ -56,15 +58,18 @@ function App() {
   
 
   return (
-    <main className='w-full overflow-x-hidden'>
-      <Navbar ref={navbarRef} />
-      <Hero navbarHeight={navbarHeight}/>
-      <Cocktails navbarHeight={navbarHeight}/>
-      <About />
-      <Art />
-      <Menu />
-      <Contact/>
-    </main>
+    <>
+      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+      <main className='w-full max-w-[100vw] overflow-x-hidden relative'>
+        <Navbar ref={navbarRef} />
+        <Hero navbarHeight={navbarHeight}/>
+        <Cocktails navbarHeight={navbarHeight}/>
+        <About />
+        <Art />
+        <Menu />
+        <Contact/>
+      </main>
+    </>
   )
 }
 

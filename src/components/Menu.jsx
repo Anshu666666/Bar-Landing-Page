@@ -5,12 +5,33 @@ import { gsap } from 'gsap'
 
 const Menu = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [touchStart, setTouchStart] = useState(null)
+    const [touchEnd, setTouchEnd] = useState(null)
 
     const totalCocktails = sliderLists.length;
 
     const goToSlide = (index) => {
         const newIndex = (index + totalCocktails) % totalCocktails;
         setCurrentIndex(newIndex);
+    }
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null)
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX)
+    }
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return
+        const distance = touchStart - touchEnd
+        if (distance > 50) {
+            goToSlide(currentIndex + 1)
+        } else if (distance < -50) {
+            goToSlide(currentIndex - 1)
+        }
     }
 
     const getCocktailAt = (indexOffset) => {
@@ -27,14 +48,14 @@ const Menu = () => {
     const nextCocktailSplitted = nextCocktail.name.split(" ")
 
     useGSAP(() => {
-        gsap.fromTo('.menu-img img', { opacity: 0, xPercent: -100 }, {
-            xPercent: 0, opacity: 1, duration: 1, ease: 'power1.inOut'
+        gsap.fromTo('.menu-img img', { opacity: 0, xPercent: -50 }, {
+            xPercent: 0, opacity: 1, duration: 0.6, ease: 'power2.out'
         })
-        gsap.fromTo('.title', { yPercent: 100, opacity: 0 }, {
-            yPercent: 0, opacity: 1, ease: 'power1.inOut'
+        gsap.fromTo('.title', { yPercent: 40, opacity: 0 }, {
+            yPercent: 0, opacity: 1, duration: 0.5, ease: 'power2.out'
         })
-        gsap.fromTo('.desc', { yPercent: 100, opacity: 0 }, {
-            yPercent: 0, opacity: 1, ease: 'power1.inOut'
+        gsap.fromTo('.desc', { yPercent: 40, opacity: 0 }, {
+            yPercent: 0, opacity: 1, duration: 0.5, ease: 'power2.out'
         })
     }, [currentIndex]);
 
@@ -72,7 +93,12 @@ const Menu = () => {
         </div>
 
         {/* Display Container */}
-        <div className="menu-display-container px-4 sm:px-[6vw] lg:px-[10vw] h-[72vh] sm:h-[70vh] w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] md:-translate-y-[40%] z-20">
+        <div 
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            className="menu-display-container px-4 sm:px-[6vw] lg:px-[10vw] h-[72vh] sm:h-[70vh] w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] md:-translate-y-[40%] z-20"
+        >
             <div className="menu-display relative h-full w-full flex justify-between items-center">
                   {/* Prev Button */}
                   <button 
@@ -89,7 +115,12 @@ const Menu = () => {
 
                   {/* Center Drink Image */}
                   <div className='menu-img w-[55%] sm:w-[50%] lg:w-[60%] h-[40vh] sm:h-[48vh] lg:h-full flex items-center justify-center pointer-events-none'>
-                    <img className='h-full max-h-[50vh] lg:max-h-full mx-auto object-contain drop-shadow-2xl' src={currentCocktail.image} alt={currentCocktail.name}></img>
+                    <img 
+                        key={currentCocktail.id} 
+                        className='h-full max-h-[50vh] lg:max-h-full mx-auto object-contain drop-shadow-2xl' 
+                        src={currentCocktail.image} 
+                        alt={currentCocktail.name}
+                    />
                   </div>
 
                   {/* Next Button */}

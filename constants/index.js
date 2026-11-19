@@ -139,33 +139,33 @@ const sliderLists = [
 	id: 1,
 	name: "Classic Mojito",
 	image: "/images/drink1.png",
-	title: "Simple Ingredients, Bold Flavor",
+	title: "Crisp Mint & Zesty Lime",
 	description:
-	 "Made with tequila, lime juice, and orange liqueur, the Margarita is easy to make and full of character. Add a salted rim for the perfect drink on summer nights.",
+	 "Fresh spearmint muddled with tangy lime juice, raw cane sugar, white rum, and topped with effervescent club soda. The ultimate Cuban refreshment.",
  },
  {
 	id: 2,
 	name: "Raspberry Mojito",
 	image: "/images/drink2.png",
-	title: "A Zesty Classic That Never Fails",
+	title: "Sun-Ripened Berry Burst",
 	description:
-	 "The Margarita is a classic that balances tangy lime, smooth tequila, and a touch of sweetness. Shaken, frozen, or on the rocks—it’s always crisp & refreshing.",
+	 "Hand-crushed fresh raspberries swirled with aromatic mint leaves, zesty lime, and premium rum. Sweet, tart, and undeniably vibrant.",
  },
  {
 	id: 3,
 	name: "Violet Breeze",
 	image: "/images/drink3.png",
-	title: "Simple Ingredients, Bold Flavor",
+	title: "Floral Notes & Wild Botanicals",
 	description:
-	 "Made with tequila, lime juice, and orange liqueur, the Margarita is easy to make and full of character. Add a salted rim for the perfect drink on summer nights.",
+	 "An enchanting blend of wild berries, elderflower cordial, butterfly pea blossom, and sparkling tonic. Delicate, fragrant, and visually striking.",
  },
  {
 	id: 4,
 	name: "Curacao Mojito",
 	image: "/images/drink4.png",
-	title: "Crafted With Care, Poured With Love",
+	title: "Tropical Citrus & Blue Curacao",
 	description:
-	 "Each cocktail is made with fresh ingredients and a passion for perfecting every pour, whether you're celebrating or simply relaxing.",
+	 "Vibrant blue curaçao infused with fresh island mint, Caribbean rum, and freshly squeezed key lime. A bold splash of tropical paradise.",
  },
 ];
 

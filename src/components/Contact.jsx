@@ -16,7 +16,7 @@ const Contact = () => {
             const timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: '#contact',
-                    start: 'top center',
+                    start: 'top 80%',
                 },
                 ease: "power1.inOut"
             })

@@ -25,8 +25,8 @@ const Navbar = forwardRef((props, ref) => {
     }, [])
 
   return (
-    <nav ref={ref} className='flex py-3 px-4 sm:px-8 md:px-12 justify-between items-center bg-black/40 backdrop-blur-md md:bg-transparent fixed z-50 w-full transition-all duration-300 border-b border-white/5 md:border-transparent'>
-        <a href='#home' className='flex items-center gap-2 sm:gap-3'>
+    <nav ref={ref} className='flex py-3 px-4 sm:px-8 md:px-12 justify-between items-center bg-black/60 backdrop-blur-md md:bg-transparent fixed top-0 inset-x-0 z-50 w-full max-w-[100vw] transition-all duration-300 border-b border-white/5 md:border-transparent'>
+        <a href='#home' className='flex items-center gap-2 sm:gap-3 shrink-0'>
             <img src='/images/logo.png' alt='Velvet Pour Logo' className='object-contain h-8 sm:h-9 md:h-10'/>
             <p className='font-negra text-2xl sm:text-3xl md:text-[2.2rem] align-middle leading-none pt-1'>Velvet Pour</p>
         </a>
@@ -45,7 +45,7 @@ const Navbar = forwardRef((props, ref) => {
             type='button'
             aria-label='Toggle navigation menu'
             onClick={() => setIsMenuOpen(prev => !prev)}
-            className='md:hidden text-white text-2xl p-1 rounded-md hover:bg-white/10 transition-colors focus:outline-none'
+            className='md:hidden text-white text-2xl p-2 rounded-md hover:bg-white/10 transition-colors focus:outline-none flex items-center justify-center shrink-0 ml-auto z-50'
         >
             <i className={isMenuOpen ? "ri-close-line" : "ri-menu-line"}></i>
         </button>

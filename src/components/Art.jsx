@@ -3,30 +3,32 @@ import { featureLists, goodLists } from '../../constants/index.js'
 import {gsap} from 'gsap'
 import {useGSAP} from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useMediaQuery } from 'react-responsive'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Art = () => {
-    const isMobile = useMediaQuery({ maxWidth: 539 });
-
     useGSAP(() => {
-	const start = isMobile ? 'top 20%' : 'top top';
-	
 	const maskTimeline = gsap.timeline({
 	 scrollTrigger: {
 		trigger: '#art',
-		start,
-		end: 'bottom center',
-		scrub: 3,
+		start: 'top top',
+		end: '+=120%',
+		scrub: 1,
 		pin: true,
 	 }
 	})
 	
 	maskTimeline
-	 .to('.will-fade', { opacity: 0, stagger: 0.2, ease: 'power1.inOut', })
-	 .to('.masked-img', { maskPosition: 'center', maskSize: '400%', duration: 1, ease: 'power1.inOut '})
-	 .fromTo('#masked-content',{opacity:0}, { opacity: 1, duration: 0.5, ease: 'power1.inOut'})
+	 .to('.will-fade', { opacity: 0, duration: 0.3, ease: 'power1.inOut' })
+	 .to('.masked-img', { 
+       maskPosition: 'center',
+       WebkitMaskPosition: 'center',
+       maskSize: '350%',
+       WebkitMaskSize: '350%',
+       duration: 0.9, 
+       ease: 'power1.inOut'
+     }, "-=0.1")
+	 .fromTo('#masked-content',{opacity:0, y: 25}, { opacity: 1, y: 0, duration: 0.5, ease: 'power1.out'}, "-=0.2")
  }, [])
 
   return (

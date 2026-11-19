@@ -2,15 +2,12 @@ import React, {useRef} from 'react'
 import { useGSAP } from '@gsap/react'
 import {gsap} from 'gsap'
 import { SplitText } from 'gsap/all'
-import {useMediaQuery} from 'react-responsive'
 
 const Hero = ({navbarHeight}) => {
   const titleRef = useRef(null)
   const subtitleRef1 = useRef(null)
   const subtitleRef2 = useRef(null)
   const videoRef = useRef()
-
-  const isMobile = useMediaQuery({ maxWidth: 539 })
 
   useGSAP(() => {
     document.fonts.ready.then(()=>{
@@ -56,25 +53,35 @@ const Hero = ({navbarHeight}) => {
         
       }, "2-same-time")
 
-      const startValue = isMobile ? 'top 50%' : 'center 60%'
-      const endValue = isMobile ? '120% top' : 'bottom top'
-
       const setupVideoScrollTrigger = () => {
-      if (!videoRef.current || isNaN(videoRef.current.duration) || videoRef.current.duration === 0) return;
+        if (!videoRef.current || isNaN(videoRef.current.duration) || videoRef.current.duration === 0) return;
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: videoRef.current,
-          start: startValue,
-          end: endValue,
-          scrub: 2,
-          pin: true,
-        }
-      }).to(videoRef.current, {
-        currentTime: videoRef.current.duration,
-        ease: 'none',
-      });
-    };
+        // Start video playback immediately upon scrolling from Hero through the end of Cocktails
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            endTrigger: "#cocktails",
+            end: "bottom bottom",
+            scrub: 1,
+          }
+        }).to(videoRef.current, {
+          currentTime: videoRef.current.duration,
+          ease: 'none',
+        });
+
+        // Smoothly fade video out as the user enters the About section
+        gsap.to('.video-container', {
+          scrollTrigger: {
+            trigger: '#about',
+            start: 'top 95%',
+            end: 'top 60%',
+            scrub: true,
+          },
+          opacity: 0,
+          ease: 'none',
+        });
+      };
 
     // Run immediately if metadata is already loaded (e.g., cached video)
     if (videoRef.current.readyState >= 1) {
@@ -127,8 +134,15 @@ const Hero = ({navbarHeight}) => {
 
     </section>
 
-    <div className='video absolute z-0 w-full h-[80%] max-md:h-[50%] bottom-0 '>
-      <video ref={videoRef} className='absolute h-full w-auto bottom-0 left-1/2 -translate-x-1/2 max-md:object-contain object-contain' src='/videos/output.mp4' muted playsInline preload='auto'></video>
+    <div className='video-container fixed inset-0 w-full max-w-[100vw] h-screen overflow-hidden pointer-events-none z-0 flex items-end justify-center'>
+      <video 
+        ref={videoRef} 
+        className='h-[62vh] sm:h-[72vh] md:h-[80vh] w-auto max-w-[95vw] object-contain pointer-events-none drop-shadow-2xl' 
+        src='/videos/output.mp4' 
+        muted 
+        playsInline 
+        preload='auto'
+      />
     </div>
     </>
   )

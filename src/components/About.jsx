@@ -12,22 +12,22 @@ const About = () => {
             const aboutTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: '.about',
-                    start: 'top center',
-                    end: '25% top',
-                    scrub: 2
+                    start: 'top 80%',
+                    toggleActions: 'play none none none',
                 }
             }).from(headingSplit.words, {
                 opacity: 0,
-                duration: 1,
-                delay: 0.3,
+                duration: 0.8,
                 y: 20,
-                ease: 'power1.inOut',
+                ease: 'power2.out',
                 stagger: 0.02
             }).from(".grid-top-row, .grid-bottom-row", {
                 opacity: 0,
-                duration: 1,
-                stagger: 0.04
-            }, "-=0.5")
+                y: 25,
+                duration: 0.7,
+                stagger: 0.08,
+                ease: 'power2.out'
+            }, "-=0.3")
         })
     }, [])
 
